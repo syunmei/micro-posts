@@ -1,4 +1,4 @@
-import com.typesafe.config.{ Config, ConfigFactory }
+import com.typesafe.config.{Config, ConfigFactory}
 import scala.collection.JavaConverters._
 
 name := """micro-posts"""
@@ -38,18 +38,21 @@ libraryDependencies ++= Seq(
   cache,
   ws,
   filters,
-  "org.scalatestplus.play" %% "scalatestplus-play"           % "2.0.0" % Test,
-  "org.scalatest"          %% "scalatest"                    % "3.0.1" % Test,
-  "org.scalikejdbc"        %% "scalikejdbc"                  % "2.5.2",
-  "org.scalikejdbc"        %% "scalikejdbc-config"           % "2.5.2",
-  "org.scalikejdbc"        %% "scalikejdbc-test"             % "2.5.2" % Test,
-  "org.skinny-framework"   %% "skinny-orm"                   % "2.3.7",
-  "org.scalikejdbc"        %% "scalikejdbc-play-initializer" % "2.5.+",
-  "ch.qos.logback"         % "logback-classic"               % "1.2.3",
-  "org.scalikejdbc"        %% "scalikejdbc-jsr310"           % "2.5.2",
-  "com.adrianhurt"         %% "play-bootstrap"               % "1.1-P25-B3",
-  "mysql"                  % "mysql-connector-java"          % "6.0.6",
-  "org.flywaydb"           %% "flyway-play"                  % "3.1.0"
+  "org.scalatestplus.play" %% "scalatestplus-play" % "2.0.0" % Test,
+  "org.scalatest" %% "scalatest" % "3.0.1" % Test,
+  "org.scalikejdbc" %% "scalikejdbc" % "2.5.2",
+  "org.scalikejdbc" %% "scalikejdbc-config" % "2.5.2",
+  "org.scalikejdbc" %% "scalikejdbc-test" % "2.5.2" % Test,
+  "org.skinny-framework" %% "skinny-orm" % "2.3.7",
+  "org.scalikejdbc" %% "scalikejdbc-play-initializer" % "2.5.+",
+  "ch.qos.logback" % "logback-classic" % "1.2.3",
+  "org.scalikejdbc" %% "scalikejdbc-jsr310" % "2.5.2",
+  "com.adrianhurt" %% "play-bootstrap" % "1.1-P25-B3",
+  "mysql" % "mysql-connector-java" % "6.0.6",
+  "org.flywaydb" %% "flyway-play" % "3.1.0",
+  "jp.t2v" %% "play2-auth" % "0.14.2",
+  "com.github.t3hnar" %% "scala-bcrypt" % "3.0",
+  "jp.t2v" %% "play2-auth-test" % "0.14.2" % Test
 )
 
 lazy val envConfig = settingKey[Config]("env-config")
@@ -64,3 +67,5 @@ flywayDriver := envConfig.value.getString("jdbcDriver")
 flywayUrl := envConfig.value.getString("jdbcUrl")
 flywayUser := envConfig.value.getString("jdbcUserName")
 flywayPassword := envConfig.value.getString("jdbcPassword")
+
+TwirlKeys.templateImports ++= Seq("forms._")

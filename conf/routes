@@ -1,8 +1,10 @@
-# Routes
-# This file defines all application routes (Higher priority routes first)
-# https://www.playframework.com/documentation/latest/ScalaRouting
-# ~~~~
-
-GET         /                                  controllers.HomeController.index
-# Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+GET         /                       controllers.HomeController.index
+GET         /signup                 controllers.SignUpController.index
+POST        /signup/register        controllers.SignUpController.register
+# 以下の一行を追加
+GET         /auth                   controllers.AuthController.index
+# 以下の一行を追加
+POST        /auth/login             controllers.AuthController.login
+# 以下の一行を追加
+POST        /auth/logout            controllers.AuthController.logout
+GET         /assets/*file           controllers.Assets.versioned(path="/public", file: Asset)
