@@ -21,7 +21,7 @@ class MicroPostServiceImpl extends MicroPostService {
   }
 
   override def findByUserId(pager: Pager[MicroPost], userId: Long)(
-    implicit dbSession: DBSession
+      implicit dbSession: DBSession
   ): Try[SearchResult[MicroPost]] =
     countBy(userId).map { size =>
       SearchResult(pager, size)(findAllByWithLimitOffset(Seq(userId)))
@@ -32,7 +32,7 @@ class MicroPostServiceImpl extends MicroPostService {
   }
 
   override def findAllByWithLimitOffset(pager: Pager[MicroPost], userId: Long)(
-    implicit dbSession: DBSession
+      implicit dbSession: DBSession
   ): Try[SearchResult[MicroPost]] = Try {
     val followingIds =
       UserFollow.findAllBy(sqls.eq(UserFollow.defaultAlias.userId, userId)).map(_.followId)
@@ -41,7 +41,7 @@ class MicroPostServiceImpl extends MicroPostService {
   }
 
   private def findAllByWithLimitOffset(userIds: Seq[Long])(pager: Pager[MicroPost])(
-    implicit dbSession: DBSession
+      implicit dbSession: DBSession
   ): Seq[MicroPost] = MicroPost.findAllByWithLimitOffset(
     sqls.in(MicroPost.defaultAlias.userId, userIds),
     pager.limit,
