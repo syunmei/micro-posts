@@ -1,6 +1,7 @@
 package controllers
 
 import jp.t2v.lab.play2.auth.AuthConfig
+import jp.t2v.lab.play2.pager.Pager
 import play.api.mvc.Results._
 import play.api.mvc.{ RequestHeader, Result }
 
@@ -37,18 +38,6 @@ trait AuthConfigSupport extends AuthConfig {
       userService.findByEmail(id).get
     }
 
-  // ログインに成功した後にリダイレクトする先を返す
-  override def loginSucceeded(request: RequestHeader)(implicit context: ExecutionContext): Future[Result] =
-    Future.successful(
-      Redirect(routes.HomeController.index())
-    )
-
-  // ログアウトに成功した後にリダイレクトする先を返す
-  override def logoutSucceeded(request: RequestHeader)(implicit context: ExecutionContext): Future[Result] =
-    Future.successful {
-      Redirect(routes.HomeController.index())
-    }
-
   // 認証に失敗した場合にリダイレクトする先を返す
   override def authenticationFailed(request: RequestHeader)(implicit context: ExecutionContext): Future[Result] =
     Future.successful(
@@ -66,5 +55,15 @@ trait AuthConfigSupport extends AuthConfig {
   override def authorize(user: User, authority: Nothing)(implicit context: ExecutionContext): Future[Boolean] =
     Future.successful {
       true
+    }
+
+  override def loginSucceeded(request: RequestHeader)(implicit context: ExecutionContext): Future[Result] =
+    Future.successful(
+      Redirect(routes.HomeController.index(Pager.default))
+    )
+
+  override def logoutSucceeded(request: RequestHeader)(implicit context: ExecutionContext): Future[Result] =
+    Future.successful {
+      Redirect(routes.HomeController.index(Pager.default))
     }
 }
